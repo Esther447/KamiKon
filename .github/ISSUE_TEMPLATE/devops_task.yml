@@ -1,0 +1,82 @@
+name: "⚙️ DevOps Task"
+description: CI/CD, containers, infrastructure, security scanning or observability work.
+title: "[DO-X.X] <short task description>"
+labels: ["type:devops"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep the `[DO-X.X]` prefix in the title. **X** is the sprint number (e.g. `[DO-3.4]`).
+        Add a `comp:*` label (`comp:ci-cd`, `comp:docker`, `comp:infra`, `comp:observability`) after you create the issue.
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What capability does this add to the delivery pipeline or platform?
+      placeholder: Every merge to `main` builds a non-root image and publishes it to ghcr.io.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: DevOps Domain
+      options:
+        - Version Control & Agile Governance
+        - Containerization & Local Parity
+        - Continuous Integration (CI)
+        - DevSecOps & Quality Gates
+        - Continuous Deployment (CD) & Infra
+        - Observability & Performance
+    validations:
+      required: true
+
+  - type: dropdown
+    id: points
+    attributes:
+      label: Story Points (Fibonacci)
+      options: ["1", "2", "3", "5", "8"]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 - Critical
+        - P1 - High
+        - P2 - Medium
+        - P3 - Nice to Have
+    validations:
+      required: true
+
+  - type: textarea
+    id: tools
+    attributes:
+      label: Tools / Files Involved
+      placeholder: |
+        - .github/workflows/ci-backend.yml
+        - Dockerfile, docker-compose.yml
+        - bandit, pip-audit, gitleaks
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      value: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: dod
+    attributes:
+      label: DevOps Definition of Done
+      options:
+        - label: Pipeline / infrastructure change runs green on a PR before merge
+        - label: No secrets committed; credentials live in GitHub Actions secrets or environments
+        - label: Usage / runbook documented in `docs/` or the relevant README
+        - label: Evidence attached to the PR (workflow run link, screenshot or dashboard)

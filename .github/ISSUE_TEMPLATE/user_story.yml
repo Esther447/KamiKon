@@ -1,0 +1,86 @@
+name: "📘 Agile User Story"
+description: A user-centric feature linked to Web / Mobile / API work and a DevOps Definition of Done.
+title: "[US-X.X] As a <role>, I want <goal> so that <benefit>"
+labels: ["type:feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep the `[US-X.X]` prefix in the title. **X** is the sprint number and the second digit is the item order (e.g. `[US-2.4]`).
+        A story is **Done** only when it meets both the functional criteria and the DevOps & Quality Definition of Done below.
+
+  - type: textarea
+    id: story
+    attributes:
+      label: User Story
+      description: Who wants what, and why?
+      value: |
+        **As a** [Student / Faculty / Public Community Guest / Event Organizer / Campus Moderator],
+        **I want to** [perform specific action],
+        **So that** [academic value / cross-campus benefit].
+    validations:
+      required: true
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track
+      options:
+        - Backend (Django/API)
+        - Frontend (UI/UX)
+        - DevOps & Infra
+        - Mobile (Flutter)
+        - SPA (React/Angular)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: points
+    attributes:
+      label: Story Points (Fibonacci)
+      options: ["1", "2", "3", "5", "8"]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 - Critical
+        - P1 - High
+        - P2 - Medium
+        - P3 - Nice to Have
+    validations:
+      required: true
+
+  - type: textarea
+    id: ui
+    attributes:
+      label: UI/UX Reference
+      description: Screen in `design.md` and the components involved.
+      placeholder: |
+        - Screen: Screen 1 — Main Event Discovery Hub
+        - Components: <EventCard />, <AccessScopePill />
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Functional Acceptance Criteria
+      value: |
+        - [ ] Criterion 1 (Backend / Service Layer)
+        - [ ] Criterion 2 (API endpoint `/api/v1/...` + OpenAPI schema updated)
+        - [ ] Criterion 3 (UI template / component responsive on mobile & desktop)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: dod
+    attributes:
+      label: DevOps & Quality Definition of Done
+      description: Confirm these are part of the scope. Tick them in the PR once they're met.
+      options:
+        - label: Unit & integration tests written (`pytest`) with >= 80% coverage on new code
+        - label: Linting (`ruff`), security check (`bandit`), and Docker build pass in GitHub Actions
+        - label: Environment variables documented in `.env.example` (if any added)
+        - label: Verified in the Staging environment after PR merge
