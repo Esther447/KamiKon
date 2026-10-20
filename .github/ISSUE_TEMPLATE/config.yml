@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: KamiKon Delivery Board
+    url: https://github.com/pelino250?tab=projects
+    about: See the current sprint, priorities and who's working on what before opening an issue.

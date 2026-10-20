@@ -1,0 +1,33 @@
+[project]
+name = "kamikon"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=6.1.2",
+    "psycopg[binary]>=3.2",
+    "python-dotenv>=1.2.4",
+]
+
+[dependency-groups]
+"dev" = [
+    "ruff",
+    "pytest",
+    "pytest-django"
+]
+
+[tool.ruff]
+line-length = 100
+exclude = [
+    "migrations",
+    "venv",
+    ".venv",
+    "env",
+    ".env",
+    ".vscode",
+    ".idea",
+    ".jbeval"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

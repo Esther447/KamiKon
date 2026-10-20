@@ -1,0 +1,69 @@
+name: "Bug Report"
+description: Something isn't working as expected.
+title: "[BUG] <short summary>"
+labels: ["type:bug"]
+body:
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - Local (docker compose)
+        - Staging
+        - Production
+        - CI (GitHub Actions)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Affected Track
+      options:
+        - Backend (Django/API)
+        - Frontend (UI/UX)
+        - DevOps & Infra
+        - Mobile (Flutter)
+        - SPA (React/Angular)
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Log in as a Public Community Guest
+        2. Open an OPEN_ALL_UNIVERSITIES event
+        3. Click "RSVP"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs. Actual Behaviour
+      placeholder: |
+        Expected: guest-pass request form is shown.
+        Actual: HTTP 500.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
+      description: Paste tracebacks, console output or a CI run link. **Remove any secrets or personal data first.**
+      render: shell
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - P0 - Critical (blocks a release / data loss / security)
+        - P1 - High
+        - P2 - Medium
+        - P3 - Low
+    validations:
+      required: true
