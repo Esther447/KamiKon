@@ -30,7 +30,7 @@ python3 scripts/setup_github_project.py --start-date 2026-10-19
 
 The script is idempotent and safe to re-run. Use `--only labels,milestones,issues,project` to run individual phases.
 
-## Planned Repository Layout
+## Planned Repository Layout ---
 
 ```text
 .github/            Issue/PR templates, CODEOWNERS, workflows
