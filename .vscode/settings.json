@@ -1,8 +1,0 @@
-{
-    "chat.tools.terminal.autoApprove": {
-        "/^python3 - <<'E'\ndef L\\(h\\):\n    h=h\\.lstrip\\('#'\\);c=\\[int\\(h\\[i:i\\+2\\],16\\)/255 for i in \\(0,2,4\\)\\]\n    c=\\[x/12\\.92 if x<=\\.03928 else \\(\\(x\\+\\.055\\)/1\\.055\\)\\*\\*2\\.4 for x in c\\]\n    return \\.2126\\*c\\[0\\]\\+\\.7152\\*c\\[1\\]\\+\\.0722\\*c\\[2\\]\ndef cr\\(a,b\\):\n    x,y=sorted\\(\\[L\\(a\\),L\\(b\\)\\],reverse=True\\);return round\\(\\(x\\+\\.05\\)/\\(y\\+\\.05\\),2\\)\nP=\\[\\(\"ink/canvas\",\"#1C1917\",\"#F6F2EA\"\\),\\(\"ink/surface\",\"#1C1917\",\"#FFFDF8\"\\),\\(\"muted/canvas\",\"#5C554B\",\"#F6F2EA\"\\),\\(\"muted/surface\",\"#5C554B\",\"#FFFDF8\"\\),\\(\"muted/pill\",\"#5C554B\",\"#ECE6D9\"\\),\\(\"ink/pill\",\"#1C1917\",\"#ECE6D9\"\\),\\(\"white/accent\",\"#FFFDF8\",\"#B4472A\"\\),\\(\"accent/canvas\",\"#B4472A\",\"#F6F2EA\"\\),\\(\"accent/surface\",\"#B4472A\",\"#FFFDF8\"\\),\\(\"accent-hover white\",\"#FFFDF8\",\"#963619\"\\),\n\\(\"dark ink/canvas\",\"#F3EEE4\",\"#14120F\"\\),\\(\"dark muted/canvas\",\"#A39B8D\",\"#14120F\"\\),\\(\"dark accent/canvas\",\"#D9694A\",\"#14120F\"\\),\\(\"dark ink on accent btn\",\"#14120F\",\"#D9694A\"\\),\\(\"dark muted/surface\",\"#A39B8D\",\"#1D1A16\"\\),\\(\"hairline/canvas\",\"#D6CDBB\",\"#F6F2EA\"\\),\n\\(\"moss dot/pill\",\"#4F6B3A\",\"#ECE6D9\"\\),\\(\"ochre dot/pill\",\"#A8741A\",\"#ECE6D9\"\\),\\(\"danger/pill\",\"#9B2C2C\",\"#ECE6D9\"\\)\\]\nfor n,a,b in P:print\\(n,cr\\(a,b\\)\\)\nE$/": {
-            "approve": true,
-            "matchCommandLine": true
-        }
-    }
-}
