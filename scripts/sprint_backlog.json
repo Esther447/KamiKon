@@ -1,0 +1,418 @@
+{
+  "project": {
+    "title": "KamiKon Delivery Board",
+    "description": "Agile Scrum board for KamiKon (Kaminuza + Connect): Django Web + REST API + DevOps, then Flutter and SPA expansions. Every feature carries a DevOps Definition of Done.",
+    "status_options": [
+      { "name": "Backlog", "color": "GRAY", "description": "Groomed or un-groomed work not yet committed to a sprint" },
+      { "name": "Ready for Sprint", "color": "BLUE", "description": "Refined, estimated and committed to the current sprint" },
+      { "name": "In Progress", "color": "YELLOW", "description": "A branch exists and work has started" },
+      { "name": "In Review (PR Open)", "color": "ORANGE", "description": "Pull request open and awaiting peer review / CI" },
+      { "name": "QA / Staging Verified", "color": "PURPLE", "description": "Merged and verified in the Staging environment" },
+      { "name": "Done", "color": "GREEN", "description": "Meets functional acceptance criteria and the DevOps DoD" }
+    ],
+    "default_status": "Backlog",
+    "first_sprint_status": "Ready for Sprint",
+    "tracks": [
+      "Backend (Django/API)",
+      "Frontend (UI/UX)",
+      "DevOps & Infra",
+      "Mobile (Flutter)",
+      "SPA (React/Angular)"
+    ],
+    "priorities": [
+      "P0 - Critical",
+      "P1 - High",
+      "P2 - Medium",
+      "P3 - Nice to Have"
+    ]
+  },
+
+  "labels": [
+    { "name": "type:feature", "color": "1E40AF", "description": "User-facing feature / user story" },
+    { "name": "type:devops", "color": "0D9488", "description": "CI/CD, containers, infrastructure or observability task" },
+    { "name": "type:bug", "color": "D73A4A", "description": "Something is not working as expected" },
+    { "name": "type:docs", "color": "0075CA", "description": "Documentation only" },
+    { "name": "type:security", "color": "B60205", "description": "Security hardening, scanning or vulnerability fix" },
+
+    { "name": "comp:auth", "color": "C5DEF5", "description": "Accounts, registration, verification, JWT" },
+    { "name": "comp:institutions", "color": "C5DEF5", "description": "Universities, campuses, venues, partner hubs" },
+    { "name": "comp:events", "color": "C5DEF5", "description": "Event lifecycle and access-scope engine" },
+    { "name": "comp:discovery", "color": "C5DEF5", "description": "Discovery feed, search, filters and campus map" },
+    { "name": "comp:tickets-qr", "color": "C5DEF5", "description": "RSVP, QR gate pass, check-in, rosters" },
+    { "name": "comp:notifications", "color": "C5DEF5", "description": "Celery notifications, reminders, push" },
+    { "name": "comp:design", "color": "C5DEF5", "description": "UI/UX design, Stitch mockups, design tokens" },
+    { "name": "comp:ci-cd", "color": "BFDADC", "description": "GitHub Actions pipelines" },
+    { "name": "comp:docker", "color": "BFDADC", "description": "Dockerfiles, Compose, container images" },
+    { "name": "comp:infra", "color": "BFDADC", "description": "Staging/production servers, backups, Nginx, TLS" },
+    { "name": "comp:observability", "color": "BFDADC", "description": "Health checks, logging, metrics, load testing" },
+    { "name": "comp:mobile", "color": "BFDADC", "description": "Flutter mobile companion app" },
+    { "name": "comp:spa", "color": "BFDADC", "description": "React / Angular single-page app" },
+
+    { "name": "good-first-issue", "color": "7057FF", "description": "Good entry point for a new contributor" },
+    { "name": "pair-programming-recommended", "color": "FBCA04", "description": "Complex enough to benefit from pairing" }
+  ],
+
+  "sprints": [
+    {
+      "number": 0,
+      "title": "Sprint 0: Inception, UI/UX Prototyping & DevOps Foundation",
+      "weeks": 2,
+      "goal": "Repository initialized, UI mockups generated via Google Stitch, local Docker environment running, and CI pipeline green on a starter Django app.",
+      "items": [
+        {
+          "id": "US-0.1",
+          "title": "Generate UI/UX wireframes & high-fidelity mockups using design.md prompts in Google Stitch",
+          "track": "Frontend (UI/UX)", "points": 3, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:design", "good-first-issue"],
+          "acceptance": [
+            "Exported screens for Feed, Event Detail, QR Pass, and Organizer Dashboard are committed or linked in `docs/`."
+          ]
+        },
+        {
+          "id": "US-0.2",
+          "title": "Initialize Django project with modular `apps/` structure and split settings (`base`, `local`, `staging`, `prod`)",
+          "track": "Backend (Django/API)", "points": 3, "priority": "P0 - Critical",
+          "labels": ["type:feature", "comp:docker"],
+          "acceptance": [
+            "Uses `django-environ` for 12-Factor App environment variables.",
+            "`.env.example` is provided; no secrets are committed to Git."
+          ]
+        },
+        {
+          "id": "DO-0.3",
+          "title": "Create multi-container `docker-compose.yml` (`web`, `postgres`, `redis`, `celery`, `mailpit`)",
+          "track": "DevOps & Infra", "points": 5, "priority": "P0 - Critical",
+          "labels": ["type:devops", "comp:docker"],
+          "acceptance": [
+            "Any student can run `docker compose up --build` and get the full local stack running in one command.",
+            "The local email testing server (`mailpit`) is part of the stack."
+          ]
+        },
+        {
+          "id": "DO-0.4",
+          "title": "Configure GitHub Actions CI workflow (`ci-backend.yml`) for Linting, Formatting & Unit Tests",
+          "track": "DevOps & Infra", "points": 5, "priority": "P0 - Critical",
+          "labels": ["type:devops", "comp:ci-cd"],
+          "acceptance": [
+            "Every PR triggers a `ruff`/`black` check.",
+            "`pytest` runs against a PostgreSQL service container.",
+            "Merge is blocked when the workflow fails."
+          ]
+        }
+      ]
+    },
+    {
+      "number": 1,
+      "title": "Sprint 1: Universities, Campuses & Academic Identity",
+      "weeks": 2,
+      "goal": "Rwandan universities and campuses modeled; students can register, verify their institution, and log in via Web and JWT API.",
+      "items": [
+        {
+          "id": "US-1.1",
+          "title": "As a platform admin, I want to manage Universities, Campuses (e.g., UR-CST, CMU-Africa, ALU, AUCA), and Venues with GPS coordinates",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P0 - Critical",
+          "labels": ["type:feature", "comp:institutions", "good-first-issue"],
+          "acceptance": [
+            "Django models and migrations exist for University, Campus and Venue.",
+            "Management command `seed_rwandan_campuses` pre-populates Kigali universities."
+          ]
+        },
+        {
+          "id": "US-1.2",
+          "title": "As a student/faculty member, I want to register with my institutional email and automatically receive my Verified University Badge",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P0 - Critical",
+          "labels": ["type:feature", "comp:auth", "comp:institutions"],
+          "acceptance": [
+            "The registration email domain is matched against `University.email_domains`.",
+            "A verification email is sent via Celery + Mailpit (dev) / SMTP (prod).",
+            "UI: registration and verification screens (Frontend track)."
+          ]
+        },
+        {
+          "id": "US-1.3",
+          "title": "Expose `/api/v1/auth/` (JWT login, refresh, profile) and `/api/v1/institutions/campuses/` with OpenAPI/Swagger docs",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:auth", "comp:institutions"],
+          "acceptance": [
+            "OpenAPI docs configured via `drf-spectacular` at `/api/schema/swagger-ui/`.",
+            "90%+ test coverage on auth endpoints."
+          ]
+        },
+        {
+          "id": "DO-1.4",
+          "title": "Add SAST (Static Application Security Testing) & Secret Scanning to GitHub Actions",
+          "track": "DevOps & Infra", "points": 3, "priority": "P1 - High",
+          "labels": ["type:devops", "type:security", "comp:ci-cd"],
+          "acceptance": [
+            "`bandit` (Python security linter) runs in CI.",
+            "`pip-audit` (dependency vulnerability check) runs in CI.",
+            "`trufflehog` or `gitleaks` secret scanning runs in CI."
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Sprint 2: Event Publication, Access Policies & Discovery Feed",
+      "weeks": 2,
+      "goal": "Organizers can publish academic events with cross-campus access rules; students can search and filter events across Kigali.",
+      "items": [
+        {
+          "id": "US-2.1",
+          "title": "As an organizer, I want to create an academic event and set its Access Scope (`Open to All Universities`, `Host University Only`, `Hybrid`)",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P0 - Critical",
+          "labels": ["type:feature", "comp:events"],
+          "acceptance": [
+            "Implemented using the Service Layer (`services.py`).",
+            "Django Forms and DRF Serializers share the same validation logic."
+          ]
+        },
+        {
+          "id": "US-2.2",
+          "title": "As a student, I want to browse the responsive Discovery Feed and filter by Host University, Academic Tag, Date, and \"Open to Me\"",
+          "track": "Frontend (UI/UX)", "points": 8, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:discovery"],
+          "acceptance": [
+            "Implements `design.md` tokens (`#0F172A`, `#1E40AF`, `#0D9488`).",
+            "Uses `<UniversityBadge />` and `<AccessScopePill />` components.",
+            "HTMX provides instant filtering."
+          ]
+        },
+        {
+          "id": "US-2.3",
+          "title": "As a user, I want to view events on an interactive Kigali Campus Map",
+          "track": "Frontend (UI/UX)", "points": 5, "priority": "P2 - Medium",
+          "labels": ["type:feature", "comp:discovery"],
+          "acceptance": [
+            "Uses Leaflet.js + OpenStreetMap.",
+            "Consumes `/api/v1/events/?format=geojson` to plot active events by campus coordinates (API track)."
+          ]
+        },
+        {
+          "id": "DO-2.4",
+          "title": "Build multi-stage production `Dockerfile` and publish tagged images to GitHub Container Registry (`ghcr.io`)",
+          "track": "DevOps & Infra", "points": 5, "priority": "P1 - High",
+          "labels": ["type:devops", "comp:docker", "comp:ci-cd"],
+          "acceptance": [
+            "Container runs as a non-root user on a slim Python base image.",
+            "Static files are collected and served via WhiteNoise/Nginx.",
+            "Image is pushed to `ghcr.io` on merge to `main`."
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Sprint 3: RSVP Engine, Inter-University QR Gate Pass & Calendar Sync",
+      "weeks": 2,
+      "goal": "Students from one university can RSVP to an open event at another university and receive a verifiable QR Gate Pass for campus security.",
+      "items": [
+        {
+          "id": "US-3.1",
+          "title": "As a student, I want to RSVP to an open event at another university and get waitlisted automatically if external seat quotas are full",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P0 - Critical",
+          "labels": ["type:feature", "comp:tickets-qr", "pair-programming-recommended"],
+          "acceptance": [
+            "Uses database row locking (`select_for_update()`) to prevent race conditions during popular hackathon registrations.",
+            "Users are waitlisted automatically when the external seat quota is full."
+          ]
+        },
+        {
+          "id": "US-3.2",
+          "title": "As an attendee, I want a downloadable/mobile-friendly Inter-University Visitor QR Gate Pass and `.ics` Calendar file",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P0 - Critical",
+          "labels": ["type:feature", "comp:tickets-qr", "type:security"],
+          "acceptance": [
+            "Generates a cryptographically signed (`HMAC-SHA256`) QR code.",
+            "The pass displays Student Name, Home University, Target Campus Gate instructions, and Pass ID.",
+            "A downloadable `.ics` calendar file is provided (Frontend track: mobile-friendly pass view)."
+          ]
+        },
+        {
+          "id": "US-3.3",
+          "title": "As a campus organizer/moderator, I want to scan QR passes at the door and export a Campus Security Visitor Roster (CSV/PDF)",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:tickets-qr"],
+          "acceptance": [
+            "Provides the `/api/v1/tickets/verify-qr/` endpoint.",
+            "Provides a downloadable security manifest (CSV/PDF) for university gate guards."
+          ]
+        },
+        {
+          "id": "DO-3.4",
+          "title": "Provision Staging Environment & Automated CD Pipeline (`cd-staging.yml`)",
+          "track": "DevOps & Infra", "points": 8, "priority": "P0 - Critical",
+          "labels": ["type:devops", "comp:infra", "comp:ci-cd", "pair-programming-recommended"],
+          "acceptance": [
+            "Containerized stack (Django, Gunicorn, Nginx, PostgreSQL, Redis, Celery) deploys to a cloud VM (DigitalOcean/AWS/Render/Railway).",
+            "Staging is served over Let's Encrypt HTTPS.",
+            "Merges to `main` deploy to Staging automatically."
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Sprint 4: Smart Notifications, Real-Time Alerts & Background Workers",
+      "weeks": 2,
+      "goal": "Automated cross-university notifications when matching academic events are published or when urgent venue changes happen.",
+      "items": [
+        {
+          "id": "US-4.1",
+          "title": "As a student, I want to subscribe to specific academic tags (`#DevOps`, `#AI`) and campuses so I get alerted when relevant events are posted",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:notifications"],
+          "acceptance": [
+            "A Celery task fans out notifications asynchronously to matching subscribers when an event transitions to `PUBLISHED`."
+          ]
+        },
+        {
+          "id": "US-4.2",
+          "title": "As an attendee, I want instant alerts if an event room changes or starts soon (24h and 2h reminders)",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P2 - Medium",
+          "labels": ["type:feature", "comp:notifications"],
+          "acceptance": [
+            "Celery Beat scheduled periodic tasks send the 24h and 2h reminders.",
+            "In-app notification bell dropdown with an unread counter (Frontend track)."
+          ]
+        },
+        {
+          "id": "DO-4.3",
+          "title": "Implement Application Health Checks, Centralized Logging & Prometheus/Grafana Monitoring",
+          "track": "DevOps & Infra", "points": 8, "priority": "P1 - High",
+          "labels": ["type:devops", "comp:observability", "pair-programming-recommended"],
+          "acceptance": [
+            "`/healthz` and `/metrics` endpoints are exposed.",
+            "Prometheus + Grafana (or Loki) are deployed via Docker Compose.",
+            "Dashboards monitor API latency, Celery queue depth, and HTTP 5xx errors."
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Sprint 5: Hardening, Load Testing & Phase 1/2 Release",
+      "weeks": 2,
+      "goal": "Stress-test the Django Web + REST API platform, fix bottlenecks with Redis caching, and finalize OpenAPI documentation for mobile/SPA teams.",
+      "items": [
+        {
+          "id": "US-5.1",
+          "title": "Cache high-traffic event discovery endpoints and campus directories using Redis",
+          "track": "Backend (Django/API)", "points": 5, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:discovery", "comp:institutions"],
+          "acceptance": [
+            "Cache invalidation is triggered automatically on event creation/update.",
+            "DB queries on the home feed are reduced by more than 70%."
+          ]
+        },
+        {
+          "id": "DO-5.2",
+          "title": "Conduct Load Testing with `Locust` or `k6` simulating 500 concurrent Kigali students RSVPing to a hackathon",
+          "track": "DevOps & Infra", "points": 5, "priority": "P2 - Medium",
+          "labels": ["type:devops", "comp:observability"],
+          "acceptance": [
+            "Students analyze Grafana dashboards during the load test and identify bottlenecks.",
+            "Gunicorn workers and DB connection pooling are tuned based on the findings."
+          ]
+        },
+        {
+          "id": "DO-5.3",
+          "title": "Database Backup Automation & Disaster Recovery Drill",
+          "track": "DevOps & Infra", "points": 5, "priority": "P1 - High",
+          "labels": ["type:devops", "comp:infra"],
+          "acceptance": [
+            "Automated daily `pg_dump` cron/container uploads to S3-compatible object storage.",
+            "The restore procedure is documented and has been tested."
+          ]
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Sprint 6 (Phase 3 Expansion): Flutter Mobile App & Push Notifications",
+      "weeks": 3,
+      "goal": "Build the cross-platform Flutter companion app consuming `/api/v1/`.",
+      "items": [
+        {
+          "id": "US-6.1",
+          "title": "Initialize Flutter app with `AppTheme` matching `design.md` tokens, JWT storage (`flutter_secure_storage`), and Event Feed screen",
+          "track": "Mobile (Flutter)", "points": 8, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:mobile"],
+          "acceptance": [
+            "Consumes `/api/v1/events/` and `/api/v1/auth/token/`.",
+            "Supports pull-to-refresh and university filter chips."
+          ]
+        },
+        {
+          "id": "US-6.2",
+          "title": "Implement Offline-First Digital Gate Pass Wallet & Organizer QR Scanner in Flutter",
+          "track": "Mobile (Flutter)", "points": 8, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:mobile", "comp:tickets-qr"],
+          "acceptance": [
+            "Caches the student's QR Gate Passes locally (`hive`/`sqflite`) so they work without mobile data at campus gates.",
+            "Uses `mobile_scanner` for organizer check-in."
+          ]
+        },
+        {
+          "id": "US-6.3",
+          "title": "Integrate Firebase Cloud Messaging (FCM) for real-time mobile push notifications",
+          "track": "Mobile (Flutter)", "points": 5, "priority": "P2 - Medium",
+          "labels": ["type:feature", "comp:mobile", "comp:notifications"],
+          "acceptance": [
+            "A Django Celery worker pushes FCM alerts when a subscribed campus posts a new open event (Backend track)."
+          ]
+        },
+        {
+          "id": "DO-6.4",
+          "title": "Create GitHub Actions Mobile CI Pipeline (`ci-mobile-flutter.yml`)",
+          "track": "DevOps & Infra", "points": 5, "priority": "P2 - Medium",
+          "labels": ["type:devops", "comp:ci-cd", "comp:mobile"],
+          "acceptance": [
+            "Runs `flutter analyze` and `flutter test`.",
+            "Builds a signed release APK artifact attached to GitHub Releases."
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Sprint 7 (Phase 4 Expansion): Component-Based SPA in React or Angular",
+      "weeks": 3,
+      "goal": "Build a decoupled modern SPA consuming the exact same `/api/v1/` backend.",
+      "items": [
+        {
+          "id": "US-7.1",
+          "title": "Scaffold React (Vite/Next.js) or Angular project with shared CSS variables from `design.md` and typed API client (auto-generated from OpenAPI spec)",
+          "track": "SPA (React/Angular)", "points": 5, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:spa"],
+          "acceptance": [
+            "Uses `openapi-typescript-codegen` or `@openapitools/openapi-generator-cli` against Django's `/api/schema/`.",
+            "Frontend types never drift from backend models."
+          ]
+        },
+        {
+          "id": "US-7.2",
+          "title": "Build Component Library (`<EventCard />`, `<UniversityBadge />`, `<AccessScopePill />`, `<FilterSidebar />`, `<KigaliCampusMap />`)",
+          "track": "SPA (React/Angular)", "points": 8, "priority": "P1 - High",
+          "labels": ["type:feature", "comp:spa", "comp:design"],
+          "acceptance": [
+            "Full interactive discovery experience.",
+            "JWT interceptor handles auth for API calls.",
+            "Organizer Analytics dashboard."
+          ]
+        },
+        {
+          "id": "DO-7.3",
+          "title": "Configure SPA CI/CD Pipeline (`ci-frontend-spa.yml`) & Reverse Proxy Routing",
+          "track": "DevOps & Infra", "points": 5, "priority": "P2 - Medium",
+          "labels": ["type:devops", "comp:ci-cd", "comp:spa"],
+          "acceptance": [
+            "Runs ESLint and Vitest/Karma unit tests.",
+            "Builds the static bundle into an Nginx container (or CDN).",
+            "CORS and reverse proxy rules are configured alongside `/api/v1/`."
+          ]
+        }
+      ]
+    }
+  ]
+}

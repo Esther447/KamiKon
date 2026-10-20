@@ -1,4 +1,4 @@
-name: "Agile User Story"
+name: "📘 Agile User Story"
 description: A user-centric feature linked to Web / Mobile / API work and a DevOps Definition of Done.
 title: "[US-X.X] As a <role>, I want <goal> so that <benefit>"
 labels: ["type:feature"]
